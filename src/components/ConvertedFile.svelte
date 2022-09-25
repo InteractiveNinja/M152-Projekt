@@ -1,35 +1,46 @@
-<script lang="ts">
-    import {onMount} from "svelte";
+<script lang='ts'>
+	import { onMount } from 'svelte';
+	import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
+	import { FileTypes } from './FileTypes';
 
-    export let file: File;
-    let convertedVideoUrl;
+	export let file: File;
+	export let fileExt: FileTypes;
+	let convertedVideoUrl;
 
-    import {createFFmpeg, fetchFile} from '@ffmpeg/ffmpeg'
 
-    const ffmpeg = createFFmpeg({log: true});
+	const ffmpeg = createFFmpeg({ log: true });
 
-    async function convertFile(file: File) {
-        await ffmpeg.load();
-        ffmpeg.FS('writeFile', "test.mp4", await fetchFile(file))
-        await ffmpeg.run('-i', 'test.mp4', 'out.mp3');
+	async function convertFile(file: File, outputFileType: FileTypes) {
+		await ffmpeg.load();
 
-        const data = ffmpeg.FS('readFile', 'out.mp3')
+		const sourceFileExt = file.name.split('.').pop();
+		const inputFile = `input.${sourceFileExt}`;
 
-        convertedVideoUrl = URL.createObjectURL(new Blob([data.buffer], {type: 'audio/mp3'}))
+		const outputFileExt = outputFileType.split("/").pop();
+		const outputFile = `output.${outputFileExt}`;
 
-    }
+		ffmpeg.FS('writeFile', inputFile, await fetchFile(file));
+		await ffmpeg.run('-i', inputFile, outputFile);
 
-    onMount(async () => {
-        if (file) {
-            await convertFile(file);
-        }
-    });
+		const data = ffmpeg.FS('readFile', outputFile);
+
+		convertedVideoUrl = URL.createObjectURL(new Blob([data.buffer], { type: outputFileType }));
+
+	}
+
+	onMount(async () => {
+		if (file && fileExt) {
+			await convertFile(file, fileExt);
+		}
+	});
 </script>
-
+<video controls>
+	<source src='{URL.createObjectURL(file)}' type='{file.type}'>
+</video>
 {#if convertedVideoUrl}
-    <p>Output Video</p>
-    <video controls>
-        <source src="{convertedVideoUrl}" type="video/mp4">
-    </video>
+	<p>Output Video</p>
+	<video controls>
+		<source src='{convertedVideoUrl}'>
+	</video>
 {/if}
 

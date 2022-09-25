@@ -1,30 +1,45 @@
 <svelte:head>
-    <title>Media Converter</title>
+	<title>Media Converter</title>
 </svelte:head>
-<script lang="ts">
-    import ConvertedFile from "../components/ConvertedFile.svelte";
+<script lang='ts'>
+	import ConvertedFile from '../components/ConvertedFile.svelte';
+	import { FileTypes } from '../components/FileTypes';
 
-    let file: File;
+	let file: File;
+	let fileExtension: FileTypes;
+	let readyForConversion = false;
 
 </script>
-<div class="container-fluid">
-    <h1>Media Converter</h1>
-    <label class="shadow">
-        <span>Datei wählen</span>
-        <input hidden class="btn" type="file" on:change="{(e) => file = e.target.files?.item(0)}" name="" id="">
-    </label>
+<div class='container-fluid'>
+	<h1>Media Converter</h1>
+	<label class='btn btn-lg btn-success shadow'>
+		<span>Datei wählen</span>
+		<input hidden class='btn' type='file' on:change='{(e) => file = e.target.files?.item(0)}' name='' id=''>
+	</label>
+	<label>
+		<span>Ziel Format wählen</span>
+		<select on:change={(e) =>  fileExtension = e.target.value } name='filetype' id='filetype'>
+			<option disabled selected value>Formate</option>
+			{#each Object.entries(FileTypes) as [key, value]}
+				<option value='{value}'>{key}</option>
+			{/each}
+		</select>
+	</label>
 
-    {#if file}
-        <p>Source Video</p>
-        <video controls>
-            <source src="{URL.createObjectURL(file)}" type="{file.type}">
-        </video>
-        <ConvertedFile file="{file}"/>
-    {/if}
+
+	{#if fileExtension && file}
+		{fileExtension}
+		<button on:click={() => readyForConversion = true} class='btn btn-dark'>Konvertieren</button>
+	{/if}
+
+
+	{#if readyForConversion}
+		<ConvertedFile file='{file}' fileExt='{fileExtension}' />
+	{/if}
 </div>
 
 
-<style lang="scss">
+<style lang='scss'>
   div {
     display: flex;
     flex-direction: column;
@@ -35,22 +50,19 @@
       font-size: 2em;
     }
 
-    label {
-      display: flex;
-      flex-direction: column;
-      background: var(--bs-success);
-      border-radius: 1em;
-      width: 66%;
-      span {
-        font-size: 1.5em;
-        padding: 0;
-        margin: .3em;
-        text-align: center;
-      }
+    input, select {
+      text-align: center;
+      margin-top: 1em;
+
     }
 
-    input[type=file] {
-      color: var(--bs-white);
+    label {
+      margin: 1em;
+      display: flex;
+      width: 66%;
+      flex-direction: column;
+      text-align: center;
+
     }
 
     video {
