@@ -28,7 +28,6 @@
 
 
 	{#if fileExtension && file}
-		{fileExtension}
 		<button on:click={() => readyForConversion = true} class='btn btn-dark'>Konvertieren</button>
 	{/if}
 
