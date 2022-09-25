@@ -1,7 +1,7 @@
 <script lang='ts'>
 	import { onMount } from 'svelte';
 	import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
-	import { FileTypes } from './FileTypes';
+	import { FileTypes } from '../types/FileTypes';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 
 	export let file: File;

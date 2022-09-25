@@ -3,7 +3,7 @@
 </svelte:head>
 <script lang='ts'>
 	import ConvertedFile from '../components/ConvertedFile.svelte';
-	import { FileTypes } from '../components/FileTypes';
+	import { FileTypes } from '../types/FileTypes';
 
 	let file: File;
 	let fileExtension: FileTypes;
