@@ -12,7 +12,7 @@
 </script>
 <div class='container-fluid'>
 	<h1>Media Converter</h1>
-	<label class='btn btn-lg btn-success shadow'>
+	<label class='btn btn-lg shadow {file ? "btn-success" : "btn-light"}'>
 		<span>Datei wählen</span>
 		<input hidden class='btn' type='file' on:change='{(e) => file = e.target.files?.item(0)}' name='' id=''>
 	</label>
