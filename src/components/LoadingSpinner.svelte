@@ -1,3 +1,6 @@
+<script lang="ts">
+	export let text: string;
+</script>
 <style lang='scss'>
   .lds-dual-ring {
     display: inline-block;
@@ -24,5 +27,11 @@
     }
   }
 
+  span {
+    padding: 1.5em;
+  }
+
 </style>
-<div class="lds-dual-ring"></div>
+<div class="lds-dual-ring">
+</div>
+<span>{text}</span>

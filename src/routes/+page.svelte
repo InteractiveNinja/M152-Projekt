@@ -21,17 +21,22 @@
         }
     }
 
+    function reset() {
+        readyForConversion = false;
+    }
+
 </script>
 <div class='container-fluid'>
 	<h1>Media Converter</h1>
-	<label class='btn btn-lg shadow {sourceFile ? "btn-success" : "btn-light"}'>
+	<label class='btn btn-lg shadow {sourceFile ? "btn-success" : "btn-light"} big-btn'>
 		<span>Datei wählen</span>
 		<input hidden class='btn' type='file' on:change='{(e) => validateFileInput(e.target.files?.item(0))}' name=''
 			   id=''>
 	</label>
-	<label>
-		<span>Ziel Format wählen</span>
-		<select on:change={(e) =>  OutputFileExtension = e.target.value } name='filetype' id='filetype'>
+	<label class="container big-btn p-0">
+		<p>Ziel Format wählen</p>
+		<select class="form-select form-select-lg" on:change={(e) =>  OutputFileExtension = e.target.value }
+				name='filetype' id='filetype'>
 			<option disabled selected value>Formate</option>
 			{#each Object.entries(FileTypes) as [key, value]}
 				<option value='{value}'>{key}</option>
@@ -44,12 +49,12 @@
 	{/if}
 
 	{#if OutputFileExtension && sourceFile && !invalideInputFile}
-		<button on:click={() => readyForConversion = true} class='btn btn-dark'>Konvertieren</button>
+		<button on:click={() => readyForConversion = true} class='btn btn-dark big-btn'>Konvertieren</button>
 	{/if}
 
 
 	{#if readyForConversion}
-		<ConvertedFile file='{file}' fileExt='{fileExtension}' />
+		<ConvertedFile reset="{reset}" file='{sourceFile}' fileExt='{OutputFileExtension}'/>
 	{/if}
 </div>
 
@@ -82,13 +87,15 @@
 
     }
 
-    label {
+    .big-btn {
       margin: 1em;
-      display: flex;
       width: 66%;
-      flex-direction: column;
-      text-align: center;
+    }
 
+    label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     video {
