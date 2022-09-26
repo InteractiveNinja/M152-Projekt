@@ -64,10 +64,18 @@
   // Global Styling
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-  :global(body) {
-    font-family: 'Poppins', sans-serif;
-    color: var(--bs-white);
-    background-color: var(--bs-gray-dark);
+  :global {
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--bs-white);
+      background-color: var(--bs-gray-dark);
+    }
+
+    .big-btn {
+      margin: 1em;
+      width: 66%;
+    }
+
   }
 
 
@@ -87,10 +95,6 @@
 
     }
 
-    .big-btn {
-      margin: 1em;
-      width: 66%;
-    }
 
     label {
       display: flex;
