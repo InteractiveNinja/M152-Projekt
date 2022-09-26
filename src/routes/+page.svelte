@@ -2,23 +2,36 @@
 	<title>Media Converter</title>
 </svelte:head>
 <script lang='ts'>
-	import ConvertedFile from '../components/ConvertedFile.svelte';
-	import { FileTypes } from '../types/FileTypes';
+    import ConvertedFile from '../components/ConvertedFile.svelte';
+    import {FileTypes} from '../types/FileTypes';
+    import {isValideFile} from "../util/FileUtil";
 
-	let file: File;
-	let fileExtension: FileTypes;
-	let readyForConversion = false;
+    let sourceFile: File;
+    let OutputFileExtension: FileTypes;
+    let invalideInputFile = false;
+    let readyForConversion = false;
+
+    function validateFileInput(file: File): void {
+        const isValide = isValideFile(file.name);
+        if (isValide) {
+            sourceFile = file;
+            invalideInputFile = false;
+        } else {
+            invalideInputFile = true;
+        }
+    }
 
 </script>
 <div class='container-fluid'>
 	<h1>Media Converter</h1>
-	<label class='btn btn-lg shadow {file ? "btn-success" : "btn-light"}'>
+	<label class='btn btn-lg shadow {sourceFile ? "btn-success" : "btn-light"}'>
 		<span>Datei wählen</span>
-		<input hidden class='btn' type='file' on:change='{(e) => file = e.target.files?.item(0)}' name='' id=''>
+		<input hidden class='btn' type='file' on:change='{(e) => validateFileInput(e.target.files?.item(0))}' name=''
+			   id=''>
 	</label>
 	<label>
 		<span>Ziel Format wählen</span>
-		<select on:change={(e) =>  fileExtension = e.target.value } name='filetype' id='filetype'>
+		<select on:change={(e) =>  OutputFileExtension = e.target.value } name='filetype' id='filetype'>
 			<option disabled selected value>Formate</option>
 			{#each Object.entries(FileTypes) as [key, value]}
 				<option value='{value}'>{key}</option>
@@ -26,8 +39,11 @@
 		</select>
 	</label>
 
+	{#if invalideInputFile}
+		<span class="text-warning">Ausgewählte Datei ist nicht valide</span>
+	{/if}
 
-	{#if fileExtension && file}
+	{#if OutputFileExtension && sourceFile && !invalideInputFile}
 		<button on:click={() => readyForConversion = true} class='btn btn-dark'>Konvertieren</button>
 	{/if}
 
@@ -40,9 +56,10 @@
 
 <style lang='scss'>
 
-	// Global Styling
+  // Global Styling
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-  :global(body){
+
+  :global(body) {
     font-family: 'Poppins', sans-serif;
     color: var(--bs-white);
     background-color: var(--bs-gray-dark);
