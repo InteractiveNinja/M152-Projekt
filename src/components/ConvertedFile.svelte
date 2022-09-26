@@ -3,6 +3,7 @@
     import {createFFmpeg, fetchFile} from '@ffmpeg/ffmpeg';
     import {FileTypes} from '../types/FileTypes';
     import LoadingSpinner from './LoadingSpinner.svelte';
+    import DownloadButton from "./DownloadButton.svelte";
 
     export let file: File;
     export let fileExt: FileTypes;
@@ -55,6 +56,7 @@
 	{:else}
 		<img src='{convertedVideoUrl}' type='media/gif' alt='Konvertierens GIF {file.name}'>
 	{/if}
+	<DownloadButton fileBlob="{convertedVideoUrl}"/>
 	<button class="btn btn-success text-white" on:click={reset()}>Nochmals Konvertieren?</button>
 {/if}
 
