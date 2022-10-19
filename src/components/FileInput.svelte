@@ -1,26 +1,25 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { isValideFile } from '../util/FileUtil';
+	import Snackbar, { Label } from '@smui/snackbar';
 
 	const dispatch = createEventDispatcher();
-	let isFilled,
-		isInvalide = false;
+
+	let snackBar: Snackbar;
 
 	const validateFileInput = (file: File) => {
-		isFilled = true;
 		if (isValideFile(file)) {
-			isInvalide = false;
 			dispatch('valide', {
 				file
 			});
 			return;
 		}
+		snackBar.open();
 		dispatch('invalide');
-		isInvalide = true;
 	};
 </script>
 
-<label class="btn btn-lg shadow {isFilled && !isInvalide ? 'btn-success' : 'btn-light'} big-btn">
+<label class="btn big-btn shadow">
 	<span>Datei wählen</span>
 	<input
 		hidden
@@ -31,9 +30,9 @@
 		id=""
 	/>
 </label>
-{#if isInvalide}
-	<span class="text-warning">Ausgewählte Datei ist nicht valide</span>
-{/if}
+<Snackbar bind:this={snackBar}>
+	<Label>Ausgewählte Datei ist nicht valide!</Label>
+</Snackbar>
 
 <style lang="scss">
 	.big-btn {
