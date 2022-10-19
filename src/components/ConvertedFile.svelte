@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 	import { FileTypes } from '../types/FileTypes';
 	import { getFileExtension, getFileTypeExtension } from '../util/FileUtil';
@@ -35,6 +35,10 @@
 		convertedVideoUrl = URL.createObjectURL(new Blob([data.buffer], { type: outputFileType }));
 		convertedFileName = outputFile;
 	}
+
+	onDestroy(() => {
+		URL.revokeObjectURL(convertedVideoUrl);
+	});
 
 	onMount(async () => {
 		if (file && fileExt) {
