@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ConvertedFile from '../components/ConvertedFile.svelte';
 	import FileInput from '../components/FileInput.svelte';
-	import { FileTypes } from '../types/FileTypes';
+	import FileFormatInput from "../components/FileFormatInput.svelte";
 
 	let sourceFile: File | undefined;
 	let outputFileExtension: FileTypes;
@@ -25,17 +25,7 @@
 
 	<label class="container big-btn p-0">
 		<p>Ziel Format wählen</p>
-		<select
-			class="form-select form-select-lg"
-			on:change={(e) => (outputFileExtension = e.target?.value)}
-			name="filetype"
-			id="filetype"
-		>
-			<option disabled selected value>Formate</option>
-			{#each Object.entries(FileTypes) as [key, value]}
-				<option {value}>{key}</option>
-			{/each}
-		</select>
+		<FileFormatInput on:fileformat="{(event) => (outputFileExtension = event.detail.format)}"/>
 	</label>
 
 	{#if isValide}
