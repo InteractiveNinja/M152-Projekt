@@ -43,7 +43,7 @@ pipeline {
         branch "master"
       }
       steps {
-        sh '#curl --insecure -X POST https://portainer.ninja.home/api/webhooks/20a74a2b-ab24-4d8b-b397-448968b77444'
+        sh 'curl --insecure -X POST https://portainer.ninja.home/api/webhooks/1c675f57-dbbd-4d51-934a-257c87970e7c'
       }
     }
   }
