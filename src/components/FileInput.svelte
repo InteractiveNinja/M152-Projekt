@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { isValideFile } from '../util/FileUtil';
 
-	const valideEvent = createEventDispatcher();
+	const dispatch = createEventDispatcher();
 	let isFilled,
 		isInvalide = false;
 
@@ -10,12 +10,12 @@
 		isFilled = true;
 		if (isValideFile(file)) {
 			isInvalide = false;
-			valideEvent('valide', {
+			dispatch('valide', {
 				file
 			});
 			return;
 		}
-		valideEvent('invalide');
+		dispatch('invalide');
 		isInvalide = true;
 	};
 </script>
