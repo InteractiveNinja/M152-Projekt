@@ -4,7 +4,6 @@ pipeline {
     imagename = "ninja/media-converter"
     registryCredential = 'jenkins-nexus'
     dockerImage = ''
-    VITE_BUILD_NR = "${BUILD_NUMBER}"
   }
 
   agent any
@@ -17,6 +16,11 @@ pipeline {
           sh '#npm run check'
           sh 'npm run lint'
         }
+      }
+    }
+    stage("Create Version") {
+      steps {
+          sh 'echo VITE_BUILD_NR=${BUILD_TAG} > .env'
       }
     }
     stage("Build Image") {
