@@ -13,7 +13,7 @@ pipeline {
       steps {
         nodejs('node') {
           sh 'npm ci'
-          //sh 'npm run check'
+          sh '#npm run check'
           sh 'npm run lint'
         }
       }
@@ -43,7 +43,7 @@ pipeline {
         branch "master"
       }
       steps {
-        //sh 'curl --insecure -X POST https://portainer.ninja.home/api/webhooks/20a74a2b-ab24-4d8b-b397-448968b77444'
+        sh '#curl --insecure -X POST https://portainer.ninja.home/api/webhooks/20a74a2b-ab24-4d8b-b397-448968b77444'
       }
     }
   }
