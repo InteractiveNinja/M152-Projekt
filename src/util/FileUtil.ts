@@ -14,5 +14,5 @@ export function getFileExtension(file: File) {
 }
 
 export function getFileTypeExtension(fileType: FileTypes) {
-	return fileType.split('/').pop()
+	return fileType.split('/').pop();
 }

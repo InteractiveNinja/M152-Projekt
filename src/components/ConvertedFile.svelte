@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 	import { FileTypes } from '../types/FileTypes';
-	import { getFileExtension, getFileTypeExtension } from "../util/FileUtil";
+	import { getFileExtension, getFileTypeExtension } from '../util/FileUtil';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import DownloadButton from './DownloadButton.svelte';
 
