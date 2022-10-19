@@ -1,8 +1,10 @@
 <script lang="ts">
 	import ConvertedFile from '../components/ConvertedFile.svelte';
 	import FileInput from '../components/FileInput.svelte';
-	import FileFormatInput from "../components/FileFormatInput.svelte";
-	import Button, { Label, Icon} from '@smui/button';
+	import FileFormatInput from '../components/FileFormatInput.svelte';
+	import { FileTypes } from '../types/FileTypes';
+	import Button, { Label, Icon } from '@smui/button';
+	import AppBar, { Row, Section, Title } from '@smui/top-app-bar';
 
 	let sourceFile: File | undefined;
 	let outputFileExtension: FileTypes;
@@ -17,8 +19,28 @@
 <svelte:head>
 	<title>Media Converter</title>
 </svelte:head>
-<div class="container-fluid">
-	<h1>Media Converter</h1>
+
+<div>
+	<AppBar variant="static" dense color="secondary">
+		<Row>
+			<Section>
+				<Icon class="material-icons">settings</Icon>
+				<Title>Media Converter</Title>
+			</Section>
+			<Section align="end">
+				<Button
+					variant="unelevated"
+					color="secondary"
+					class="small-side-button"
+					on:click={() => window.open('https://svelte.dev/', '_blank')}
+				>
+					<Label>Made with Svelte</Label>
+					<Icon class="material-icons white-icon">favorite</Icon>
+				</Button>
+			</Section>
+		</Row>
+	</AppBar>
+
 	<FileInput
 		on:valide={(event) => (sourceFile = event.detail.file)}
 		on:invalide={() => (sourceFile = undefined)}
@@ -26,7 +48,7 @@
 
 	<label class="container big-btn p-0">
 		<p>Ziel Format wählen</p>
-		<FileFormatInput on:fileformat="{(event) => (outputFileExtension = event.detail.format)}"/>
+		<FileFormatInput on:fileformat={(event) => (outputFileExtension = event.detail.format)} />
 	</label>
 
 	{#if isValide}
