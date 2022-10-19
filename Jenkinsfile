@@ -4,7 +4,7 @@ pipeline {
     imagename = "ninja/media-converter"
     registryCredential = 'jenkins-nexus'
     dockerImage = ''
-    VITE_BUILD_NR = $BUILD_NUMBER
+    VITE_BUILD_NR = "${BUILD_NUMBER}"
   }
 
   agent any
