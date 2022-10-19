@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { env } from '$env/dynamic/public';
 	import ConvertedFile from '../components/ConvertedFile.svelte';
 	import FileInput from '../components/FileInput.svelte';
 	import { FileTypes } from '../types/FileTypes';
