@@ -1,62 +1,61 @@
-<script lang='ts'>
-    import {onMount} from 'svelte';
-    import {createFFmpeg, fetchFile} from '@ffmpeg/ffmpeg';
-    import {FileTypes} from '../types/FileTypes';
-    import LoadingSpinner from './LoadingSpinner.svelte';
-    import DownloadButton from "./DownloadButton.svelte";
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
+	import { FileTypes } from '../types/FileTypes';
+	import LoadingSpinner from './LoadingSpinner.svelte';
+	import DownloadButton from './DownloadButton.svelte';
 
-    export let file: File;
-    export let fileExt: FileTypes;
-    export let reset: void;
-    let convertedVideoUrl;
-    let ffmpegLoaded = true;
-    let loading = false;
+	export let file: File;
+	export let fileExt: FileTypes;
+	export let reset: void;
+	let convertedVideoUrl;
+	let ffmpegLoaded = true;
+	let loading = false;
 
+	const ffmpeg = createFFmpeg({ log: true });
 
-    const ffmpeg = createFFmpeg({log: true});
+	async function convertFile(file: File, outputFileType: FileTypes) {
+		await ffmpeg.load();
+		ffmpegLoaded = false;
+		loading = true;
+		const sourceFileExt = file.name.split('.').pop();
+		const inputFile = `input.${sourceFileExt}`;
 
-    async function convertFile(file: File, outputFileType: FileTypes) {
-        await ffmpeg.load();
-        ffmpegLoaded = false;
-        loading = true;
-        const sourceFileExt = file.name.split('.').pop();
-        const inputFile = `input.${sourceFileExt}`;
+		const outputFileExt = outputFileType.split('/').pop();
+		const outputFile = `output.${outputFileExt}`;
 
-        const outputFileExt = outputFileType.split('/').pop();
-        const outputFile = `output.${outputFileExt}`;
+		ffmpeg.FS('writeFile', inputFile, await fetchFile(file));
+		await ffmpeg.run('-i', inputFile, outputFile);
+		loading = false;
 
-        ffmpeg.FS('writeFile', inputFile, await fetchFile(file));
-        await ffmpeg.run('-i', inputFile, outputFile);
-        loading = false;
+		const data = ffmpeg.FS('readFile', outputFile);
 
-        const data = ffmpeg.FS('readFile', outputFile);
+		convertedVideoUrl = URL.createObjectURL(new Blob([data.buffer], { type: outputFileType }));
+	}
 
-        convertedVideoUrl = URL.createObjectURL(new Blob([data.buffer], {type: outputFileType}));
-
-    }
-
-    onMount(async () => {
-        if (file && fileExt) {
-            await convertFile(file, fileExt);
-        }
-    });
+	onMount(async () => {
+		if (file && fileExt) {
+			await convertFile(file, fileExt);
+		}
+	});
 </script>
+
 {#if ffmpegLoaded}
-	<LoadingSpinner text="Konverter wird vorbereitet..."/>
+	<LoadingSpinner text="Konverter wird vorbereitet..." />
 {/if}
 
 {#if loading}
-	<LoadingSpinner text="Datei wird konvertiert..."/>
+	<LoadingSpinner text="Datei wird konvertiert..." />
 {/if}
 {#if convertedVideoUrl}
 	{#if fileExt !== FileTypes.gif}
 		<video controls>
-			<source src='{convertedVideoUrl}'>
+			<source src={convertedVideoUrl} />
 		</video>
 	{:else}
-		<img src='{convertedVideoUrl}' type='media/gif' alt='Konvertierens GIF {file.name}'>
+		<img src={convertedVideoUrl} type="media/gif" alt="Konvertierens GIF {file.name}" />
 	{/if}
-	<DownloadButton fileBlob="{convertedVideoUrl}"/>
+	<DownloadButton fileBlob={convertedVideoUrl} />
 	<button class="btn btn-success text-white" on:click={reset()}>Nochmals Konvertieren?</button>
 {/if}
 
@@ -66,9 +65,8 @@
 		height: auto;
 	}
 	.btn {
-        margin: 1em;
-        width: 66%;
-        text-align: center;
+		margin: 1em;
+		width: 66%;
+		text-align: center;
 	}
 </style>
-

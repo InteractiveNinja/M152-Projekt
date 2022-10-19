@@ -1,88 +1,92 @@
+<script lang="ts">
+	import ConvertedFile from '../components/ConvertedFile.svelte';
+	import FileInput from '../components/FileInput.svelte';
+	import { FileTypes } from '../types/FileTypes';
+
+	let sourceFile: File;
+	let outputFileExtension: FileTypes;
+	let readyForConversion = false;
+	$: isValide = !!sourceFile && !!outputFileExtension;
+
+	function reset() {
+		readyForConversion = false;
+	}
+</script>
+
 <svelte:head>
 	<title>Media Converter</title>
 </svelte:head>
-<script lang='ts'>
-    import ConvertedFile from '../components/ConvertedFile.svelte';
-	import FileInput from "../components/FileInput.svelte";
-    import {FileTypes} from '../types/FileTypes';
-
-    let sourceFile: File;
-    let outputFileExtension: FileTypes;
-    let readyForConversion = false;
-	$: isValide = !!sourceFile && !!outputFileExtension
-
-    function reset() {
-        readyForConversion = false;
-    }
-
-</script>
-<div class='container-fluid'>
+<div class="container-fluid">
 	<h1>Media Converter</h1>
-	<FileInput on:valide={(file) => sourceFile = file } on:invalide={() => sourceFile = undefined }></FileInput>
+	<FileInput
+		on:valide={(file) => (sourceFile = file)}
+		on:invalide={() => (sourceFile = undefined)}
+	/>
 
 	<label class="container big-btn p-0">
 		<p>Ziel Format wählen</p>
-		<select class="form-select form-select-lg" on:change={(e) =>  outputFileExtension = e.target.value }
-				name='filetype' id='filetype'>
+		<select
+			class="form-select form-select-lg"
+			on:change={(e) => (outputFileExtension = e.target.value)}
+			name="filetype"
+			id="filetype"
+		>
 			<option disabled selected value>Formate</option>
 			{#each Object.entries(FileTypes) as [key, value]}
-				<option value='{value}'>{key}</option>
+				<option {value}>{key}</option>
 			{/each}
 		</select>
 	</label>
 
 	{#if isValide}
-		<button on:click={() => readyForConversion = true} class='btn btn-dark big-btn'>Konvertieren</button>
+		<button on:click={() => (readyForConversion = true)} class="btn btn-dark big-btn"
+			>Konvertieren</button
+		>
 	{/if}
 
-
 	{#if readyForConversion}
-		<ConvertedFile reset="{reset}" file='{sourceFile}' fileExt='{outputFileExtension}'/>
+		<ConvertedFile {reset} file={sourceFile} fileExt={outputFileExtension} />
 	{/if}
 </div>
 
+<style lang="scss">
+	// Global Styling
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-<style lang='scss'>
+	:global {
+		body {
+			font-family: 'Poppins', sans-serif;
+			color: var(--bs-white);
+			background-color: var(--bs-gray-dark);
+		}
+	}
 
-  // Global Styling
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+	div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 
-  :global {
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: var(--bs-white);
-      background-color: var(--bs-gray-dark);
-    }
-  }
+		h1,
+		p {
+			text-align: center;
+			font-size: 2em;
+		}
 
+		input,
+		select {
+			text-align: center;
+			margin-top: 1em;
+		}
 
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+		label {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
 
-    h1, p {
-      text-align: center;
-      font-size: 2em;
-    }
-
-    input, select {
-      text-align: center;
-      margin-top: 1em;
-    }
-
-
-    label {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    video {
-      width: 100%;
-      height: auto;
-    }
-  }
-
+		video {
+			width: 100%;
+			height: auto;
+		}
+	}
 </style>
-
