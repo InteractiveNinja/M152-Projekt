@@ -2,6 +2,7 @@
 	import ConvertedFile from '../components/ConvertedFile.svelte';
 	import FileInput from '../components/FileInput.svelte';
 	import FileFormatInput from "../components/FileFormatInput.svelte";
+	import Button, { Label, Icon} from '@smui/button';
 
 	let sourceFile: File | undefined;
 	let outputFileExtension: FileTypes;
@@ -29,9 +30,10 @@
 	</label>
 
 	{#if isValide}
-		<button on:click={() => (readyForConversion = true)} class="btn btn-dark big-btn"
-			>Konvertieren
-		</button>
+		<Button variant="raised" on:click={() => (readyForConversion = true)}>
+			<Icon class="material-icons">settings</Icon>
+			<Label>Konvertieren</Label>
+		</Button>
 	{/if}
 
 	{#if readyForConversion}
