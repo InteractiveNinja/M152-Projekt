@@ -9,7 +9,8 @@
 	export let file: File;
 	export let fileExt: FileTypes;
 	export let reset: () => void;
-	let convertedVideoUrl;
+	let convertedVideoUrl: string;
+	let convertedFileName: string;
 	let ffmpegLoaded = true;
 	let loading = false;
 
@@ -32,6 +33,7 @@
 		const data = ffmpeg.FS('readFile', outputFile);
 
 		convertedVideoUrl = URL.createObjectURL(new Blob([data.buffer], { type: outputFileType }));
+		convertedFileName = outputFile;
 	}
 
 	onMount(async () => {
@@ -57,7 +59,7 @@
 	{:else}
 		<img src={convertedVideoUrl} type="media/gif" alt="Konvertierens GIF {file.name}" />
 	{/if}
-	<DownloadButton fileBlob={convertedVideoUrl} />
+	<DownloadButton fileBlob={convertedVideoUrl} filename={convertedFileName} />
 	<button class="btn btn-success text-white" on:click={reset()}>Nochmals Konvertieren?</button>
 {/if}
 
@@ -66,6 +68,7 @@
 		width: 50%;
 		height: auto;
 	}
+
 	.btn {
 		margin: 1em;
 		width: 66%;
