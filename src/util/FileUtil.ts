@@ -1,7 +1,7 @@
 import { FileTypes } from '../types/FileTypes';
 
 export function isValideFile(file: File): boolean {
-	const fileExt = file.name.split('.').pop();
+	const fileExt = getFileExtension(file);
 	if (!fileExt) {
 		return false;
 	}
