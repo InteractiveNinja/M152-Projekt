@@ -20,8 +20,8 @@
 <div class="container-fluid">
 	<h1>Media Converter</h1>
 	<FileInput
-		on:valide={(file) => (sourceFile = file)}
-		on:invalide={() => (sourceFile = undefined)}
+		on:valid={(event) => (sourceFile = event.detail.file)}
+		on:invalid={() => (sourceFile = undefined)}
 	/>
 
 	<label class="container big-btn p-0">
