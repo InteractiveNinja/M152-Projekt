@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 	import { FileTypes } from '../types/FileTypes';
+	import { getFileExtension, getFileTypeExtension } from "../util/FileUtil";
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import DownloadButton from './DownloadButton.svelte';
 
@@ -18,10 +19,10 @@
 		await ffmpeg.load();
 		ffmpegLoaded = false;
 		loading = true;
-		const sourceFileExt = file.name.split('.').pop();
+		const sourceFileExt = getFileExtension(file);
 		const inputFile = `input.${sourceFileExt}`;
 
-		const outputFileExt = outputFileType.split('/').pop();
+		const outputFileExt = getFileTypeExtension(outputFileType);
 		const outputFile = `output.${outputFileExt}`;
 
 		ffmpeg.FS('writeFile', inputFile, await fetchFile(file));

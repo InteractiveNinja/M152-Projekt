@@ -8,7 +8,7 @@
 
 	const validateFileInput = (file: File) => {
 		isFilled = true;
-		if (isValideFile(file.name)) {
+		if (isValideFile(file)) {
 			isInvalide = false;
 			valideEvent('valide', {
 				file
