@@ -48,8 +48,8 @@
 	{#if readyForConversion}
 		<ConvertedFile {reset} file={sourceFile} fileExt={outputFileExtension} />
 	{/if}
-	{#if env.BUILD_NUMBER}
-		{env.BUILD_NUMBER}
+	{#if import.meta.env.VITE_BUILD_NR}
+		Build: {import.meta.env.VITE_BUILD_NR}
 	{/if}
 </div>
 
