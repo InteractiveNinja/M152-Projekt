@@ -26,7 +26,7 @@
 		hidden
 		class="btn"
 		type="file"
-		on:change={(e) => validateFileInput(e.target.files?.item(0))}
+		on:change={(e) => validateFileInput(e.target?.files?.item(0))}
 		name=""
 		id=""
 	/>

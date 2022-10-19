@@ -3,7 +3,7 @@
 	import FileInput from '../components/FileInput.svelte';
 	import { FileTypes } from '../types/FileTypes';
 
-	let sourceFile: File;
+	let sourceFile: File | undefined;
 	let outputFileExtension: FileTypes;
 	let readyForConversion = false;
 	$: isValide = !!sourceFile && !!outputFileExtension;
@@ -27,7 +27,7 @@
 		<p>Ziel Format wählen</p>
 		<select
 			class="form-select form-select-lg"
-			on:change={(e) => (outputFileExtension = e.target.value)}
+			on:change={(e) => (outputFileExtension = e.target?.value)}
 			name="filetype"
 			id="filetype"
 		>

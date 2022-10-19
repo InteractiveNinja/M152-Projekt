@@ -7,7 +7,7 @@
 
 	export let file: File;
 	export let fileExt: FileTypes;
-	export let reset: void;
+	export let reset: () => void;
 	let convertedVideoUrl;
 	let ffmpegLoaded = true;
 	let loading = false;
