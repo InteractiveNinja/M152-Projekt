@@ -20,7 +20,7 @@
 <div class="container-fluid">
 	<h1>Media Converter</h1>
 	<FileInput
-		on:valide={(event) => console.log(event.detail.file)}
+		on:valide={(event) => (sourceFile = event.detail.file)}
 		on:invalide={() => (sourceFile = undefined)}
 	/>
 
