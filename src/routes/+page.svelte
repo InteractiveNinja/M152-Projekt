@@ -3,23 +3,13 @@
 </svelte:head>
 <script lang='ts'>
     import ConvertedFile from '../components/ConvertedFile.svelte';
+	import FileInput from "../components/FileInput.svelte";
     import {FileTypes} from '../types/FileTypes';
-    import {isValideFile} from "../util/FileUtil";
 
     let sourceFile: File;
-    let OutputFileExtension: FileTypes;
-    let invalideInputFile = false;
+    let outputFileExtension: FileTypes;
     let readyForConversion = false;
-
-    function validateFileInput(file: File): void {
-        const isValide = isValideFile(file.name);
-        if (isValide) {
-            sourceFile = file;
-            invalideInputFile = false;
-        } else {
-            invalideInputFile = true;
-        }
-    }
+	$: isValide = !!sourceFile && !!outputFileExtension
 
     function reset() {
         readyForConversion = false;
@@ -28,14 +18,11 @@
 </script>
 <div class='container-fluid'>
 	<h1>Media Converter</h1>
-	<label class='btn btn-lg shadow {sourceFile ? "btn-success" : "btn-light"} big-btn'>
-		<span>Datei wählen</span>
-		<input hidden class='btn' type='file' on:change='{(e) => validateFileInput(e.target.files?.item(0))}' name=''
-			   id=''>
-	</label>
+	<FileInput on:valide={(file) => sourceFile = file } on:invalide={() => sourceFile = undefined }></FileInput>
+
 	<label class="container big-btn p-0">
 		<p>Ziel Format wählen</p>
-		<select class="form-select form-select-lg" on:change={(e) =>  OutputFileExtension = e.target.value }
+		<select class="form-select form-select-lg" on:change={(e) =>  outputFileExtension = e.target.value }
 				name='filetype' id='filetype'>
 			<option disabled selected value>Formate</option>
 			{#each Object.entries(FileTypes) as [key, value]}
@@ -44,17 +31,13 @@
 		</select>
 	</label>
 
-	{#if invalideInputFile}
-		<span class="text-warning">Ausgewählte Datei ist nicht valide</span>
-	{/if}
-
-	{#if OutputFileExtension && sourceFile && !invalideInputFile}
+	{#if isValide}
 		<button on:click={() => readyForConversion = true} class='btn btn-dark big-btn'>Konvertieren</button>
 	{/if}
 
 
 	{#if readyForConversion}
-		<ConvertedFile reset="{reset}" file='{sourceFile}' fileExt='{OutputFileExtension}'/>
+		<ConvertedFile reset="{reset}" file='{sourceFile}' fileExt='{outputFileExtension}'/>
 	{/if}
 </div>
 
@@ -70,12 +53,6 @@
       color: var(--bs-white);
       background-color: var(--bs-gray-dark);
     }
-
-    .big-btn {
-      margin: 1em;
-      width: 66%;
-    }
-
   }
 
 
@@ -92,7 +69,6 @@
     input, select {
       text-align: center;
       margin-top: 1em;
-
     }
 
 
