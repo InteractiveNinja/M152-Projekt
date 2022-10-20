@@ -17,10 +17,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Media Converter</title>
-</svelte:head>
-
 <div>
 	<AppBar variant="static">
 		<Row>
