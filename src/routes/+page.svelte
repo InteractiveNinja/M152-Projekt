@@ -6,6 +6,7 @@
 	import { FileTypes } from '../types/FileTypes';
 	import Button, { Label, Icon } from '@smui/button';
 	import AppBar, { Row, Section, Title } from '@smui/top-app-bar';
+	import Card, { Content } from '@smui/card';
 
 	let sourceFile: File | undefined;
 	let outputFileExtension: FileTypes;
@@ -37,13 +38,23 @@
 			</Section>
 		</Row>
 	</AppBar>
+	<div class="container-fluid p-4">
+		<div class="container-fluid text-center">
+			<div class="header">Media-Konverter</div>
+			<div class="subtitle1">Konvertieren Sie Ihre Dateien in jedes beliebige Format</div>
+			<div class="subtitle1">Lokale auf Ihren Browser</div>
+		</div>
+		<Card class="w-100">
+			<Content>
+				<FileInput
+					on:valide={(event) => (sourceFile = event.detail.file)}
+					on:invalide={() => (sourceFile = undefined)}
+				/>
 
-	<FileInput
-		on:valide={(event) => (sourceFile = event.detail.file)}
-		on:invalide={() => (sourceFile = undefined)}
-	/>
-
-	<FileFormatInput on:fileformat={(event) => (outputFileExtension = event.detail.format)} />
+				<FileFormatInput on:fileformat={(event) => (outputFileExtension = event.detail.format)} />
+			</Content>
+		</Card>
+	</div>
 
 	{#if isValide}
 		<Button variant="raised" on:click={() => (readyForConversion = true)}>
@@ -57,3 +68,17 @@
 	{/if}
 	<Footer />
 </div>
+
+<style lang="scss">
+	@use '@material/typography';
+	@use './src/theme/variables';
+
+	.header {
+		@include typography.typography(headline3);
+		color: variables.$primary;
+		font-weight: bold;
+	}
+	.subtitle1 {
+		@include typography.typography(subtitle1);
+	}
+</style>
