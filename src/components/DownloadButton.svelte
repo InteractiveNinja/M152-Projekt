@@ -13,7 +13,7 @@
 	}
 </script>
 
-<Button variant="raised" on:click={downloadFile}>
+<Button variant="raised" color="secondary" on:click={downloadFile}>
 	<Icon class="material-icons">arrow_downward</Icon>
 	<Label>Datei Herunterladen</Label>
 </Button>

@@ -22,7 +22,7 @@
 </svelte:head>
 
 <div>
-	<AppBar variant="static" dense color="secondary">
+	<AppBar variant="static">
 		<Row>
 			<Section>
 				<Icon class="material-icons">settings</Icon>

@@ -30,7 +30,7 @@
 	};
 </script>
 
-<Button variant="raised" color="secondary" on:click={openFilePicker}>
+<Button variant="raised" on:click={openFilePicker}>
 	<Icon class="material-icons">attach_file</Icon>
 	<Label>Datei wählen</Label>
 </Button>
