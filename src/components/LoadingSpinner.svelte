@@ -3,7 +3,7 @@
 	import CircularProgress from '@smui/circular-progress';
 </script>
 
-<div class="d-flex flex-column align-items-center">
+<div class="d-flex flex-column">
 	<CircularProgress
 		class="my-four-colors"
 		style="height: 32px; width: 32px;"
