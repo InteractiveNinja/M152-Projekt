@@ -21,7 +21,7 @@
 	<AppBar variant="static">
 		<Row>
 			<Section>
-				<Icon class="material-icons">settings</Icon>
+				<Icon class="material-icons">change_circle</Icon>
 				<Title>Media Converter</Title>
 			</Section>
 			<Section align="end">
