@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button, { Icon, Label } from '@smui/button';
 	export let fileBlob: string;
 	export let filename: string;
 
@@ -12,6 +13,7 @@
 	}
 </script>
 
-<button id="btn" class="btn btn-success big-btn" on:click={() => downloadFile()}
-	>Herunterladen</button
->
+<Button class="download-button" variant="raised" on:click={downloadFile}>
+	<Icon class="material-icons">arrow_downward</Icon>
+	<Label>Datei Herunterladen</Label>
+</Button>
