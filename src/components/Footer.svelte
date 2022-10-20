@@ -6,6 +6,9 @@
 	@use '@material/typography/index' as typography;
 
 	.footer {
+		position: fixed;
+		left: 0;
+		bottom: 0;
 		@include typography.typography('caption');
 	}
 </style>
