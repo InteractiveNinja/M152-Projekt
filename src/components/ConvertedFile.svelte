@@ -4,7 +4,7 @@
 	import { FileTypes } from '../types/FileTypes';
 	import { getFileExtension, getFileTypeExtension } from '../util/FileUtil';
 	import LoadingSpinner from './LoadingSpinner.svelte';
-	import DownloadButton from './DownloadButton.svelte';
+	import VideoShowcase from './VideoShowcase.svelte';
 
 	export let file: File;
 	export let fileExt: FileTypes;
@@ -55,27 +55,5 @@
 	<LoadingSpinner text="Datei wird konvertiert..." />
 {/if}
 {#if convertedVideoUrl}
-	{#if fileExt !== FileTypes.gif}
-		<!-- svelte-ignore a11y-media-has-caption -->
-		<video controls>
-			<source src={convertedVideoUrl} />
-		</video>
-	{:else}
-		<img src={convertedVideoUrl} type="media/gif" alt="Konvertierens GIF {file.name}" />
-	{/if}
-	<DownloadButton fileBlob={convertedVideoUrl} filename={convertedFileName} />
-	<button class="btn btn-success text-white" on:click={reset()}>Nochmals Konvertieren?</button>
+	<VideoShowcase {convertedFileName} {convertedVideoUrl} {reset} {fileExt} />
 {/if}
-
-<style>
-	video {
-		width: 50%;
-		height: auto;
-	}
-
-	.btn {
-		margin: 1em;
-		width: 66%;
-		text-align: center;
-	}
-</style>
