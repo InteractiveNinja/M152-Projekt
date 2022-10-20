@@ -2,6 +2,7 @@
 	import ConvertedFile from '../components/ConvertedFile.svelte';
 	import FileInput from '../components/FileInput.svelte';
 	import FileFormatInput from '../components/FileFormatInput.svelte';
+	import Footer from '../components/Footer.svelte';
 	import { FileTypes } from '../types/FileTypes';
 	import Button, { Label, Icon } from '@smui/button';
 	import AppBar, { Row, Section, Title } from '@smui/top-app-bar';
@@ -58,7 +59,5 @@
 	{#if readyForConversion}
 		<ConvertedFile {reset} file={sourceFile} fileExt={outputFileExtension} />
 	{/if}
-	{#if import.meta.env.VITE_BUILD_NR}
-		Build: {import.meta.env.VITE_BUILD_NR}
-	{/if}
+	<Footer />
 </div>
