@@ -16,7 +16,9 @@
 		"prepare": "husky install"
 	},
 	"devDependencies": {
+		"@material/typography": "^14.0.0",
 		"@smui/button": "^7.0.0-beta.0",
+		"@smui/circular-progress": "^7.0.0-beta.0",
 		"@smui/snackbar": "^7.0.0-beta.0",
 		"@smui/top-app-bar": "^7.0.0-beta.0",
 		"@sveltejs/adapter-auto": "next",
