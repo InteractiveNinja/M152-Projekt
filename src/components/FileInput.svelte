@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button, { Icon } from '@smui/button';
 	import { createEventDispatcher } from 'svelte';
 	import { isValideFile } from '../util/FileUtil';
 	import Snackbar, { Label } from '@smui/snackbar';
@@ -7,36 +8,33 @@
 
 	let snackBar: Snackbar;
 
-	const validateFileInput = (file: File) => {
+	const openFilePicker = () => {
+		let input = document.createElement('input');
+		input.type = 'file';
+		input.onchange = () => {
+			let files = Array.from(input.files);
+			if (files.length >= 1) {
+				validateFile(files.pop());
+			}
+		};
+		input.click();
+	};
+
+	const validateFile = (file: File) => {
 		if (isValideFile(file)) {
-			dispatch('valide', {
-				file
-			});
+			dispatch('valide', { file });
 			return;
 		}
-		snackBar.open();
 		dispatch('invalide');
+		snackBar.open();
 	};
 </script>
 
-<label class="btn big-btn shadow">
-	<span>Datei wählen</span>
-	<input
-		hidden
-		class="btn"
-		type="file"
-		on:change={(e) => validateFileInput(e.target?.files?.item(0))}
-		name=""
-		id=""
-	/>
-</label>
+<Button variant="raised" color="secondary" on:click={openFilePicker}>
+	<Icon class="material-icons">attach_file</Icon>
+	<Label>Datei wählen</Label>
+</Button>
+
 <Snackbar bind:this={snackBar}>
 	<Label>Ausgewählte Datei ist nicht valide!</Label>
 </Snackbar>
-
-<style lang="scss">
-	.big-btn {
-		margin: 1em;
-		width: 66%;
-	}
-</style>
