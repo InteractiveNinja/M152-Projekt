@@ -18,7 +18,7 @@
 	<Select
 		required
 		label="Zielformat"
-		on:MDCSelect:change={(e) => fileFormatChoosen(e.target?.value)}
+		on:MDCSelect:change={(e) => fileFormatChoosen(e.detail.value)}
 	>
 		<Icon class="material-icons" slot="leadingIcon">file_present</Icon>
 		{#each Object.entries(FileTypes) as [key, value]}
