@@ -1,37 +1,22 @@
 <script lang="ts">
-	export let text: string;
+	export let text = 'Wird geladen';
+	import CircularProgress from '@smui/circular-progress';
 </script>
 
-<div class="lds-dual-ring" />
-<span>{text}</span>
+<div class="d-flex flex-column align-items-center">
+	<CircularProgress
+		class="my-four-colors"
+		style="height: 32px; width: 32px;"
+		indeterminate
+		fourColor
+	/>
+	<div class="spinner-text">{text}</div>
+</div>
 
 <style lang="scss">
-	.lds-dual-ring {
-		display: inline-block;
-		width: 80px;
-		height: 80px;
-	}
-	.lds-dual-ring:after {
-		content: ' ';
-		display: block;
-		width: 64px;
-		height: 64px;
-		margin: 8px;
-		border-radius: 50%;
-		border: 6px solid #fff;
-		border-color: #fff transparent #fff transparent;
-		animation: lds-dual-ring 1.2s linear infinite;
-	}
-	@keyframes lds-dual-ring {
-		0% {
-			transform: rotate(0deg);
-		}
-		100% {
-			transform: rotate(360deg);
-		}
-	}
+	@use '@material/typography/index' as typography;
 
-	span {
-		padding: 1.5em;
+	.spinner-text {
+		@include typography.typography('overline');
 	}
 </style>
