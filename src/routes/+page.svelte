@@ -46,10 +46,7 @@
 		on:invalide={() => (sourceFile = undefined)}
 	/>
 
-	<label class="container big-btn p-0">
-		<p>Ziel Format wählen</p>
-		<FileFormatInput on:fileformat={(event) => (outputFileExtension = event.detail.format)} />
-	</label>
+	<FileFormatInput on:fileformat={(event) => (outputFileExtension = event.detail.format)} />
 
 	{#if isValide}
 		<Button variant="raised" on:click={() => (readyForConversion = true)}>

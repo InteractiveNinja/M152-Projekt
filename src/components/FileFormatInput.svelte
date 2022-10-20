@@ -1,4 +1,7 @@
 <script lang="ts">
+	import Select, { Option } from '@smui/select';
+	import Icon from '@smui/select/icon';
+
 	import { FileTypes } from '../types/FileTypes';
 	import { createEventDispatcher } from 'svelte';
 
@@ -11,14 +14,15 @@
 	};
 </script>
 
-<select
-	class="form-select form-select-lg"
-	on:change={(e) => fileFormatChoosen(e.target?.value)}
-	name="filetype"
-	id="filetype"
->
-	<option disabled selected value>Formate</option>
-	{#each Object.entries(FileTypes) as [key, value]}
-		<option {value}>{key}</option>
-	{/each}
-</select>
+<div>
+	<Select
+		required
+		label="Zielformat"
+		on:MDCSelect:change={(e) => fileFormatChoosen(e.target?.value)}
+	>
+		<Icon class="material-icons" slot="leadingIcon">file_present</Icon>
+		{#each Object.entries(FileTypes) as [key, value]}
+			<Option {value}>{key}</Option>
+		{/each}
+	</Select>
+</div>
