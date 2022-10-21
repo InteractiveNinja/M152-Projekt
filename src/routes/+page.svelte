@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ConvertedFile from '../components/ConvertedFile.svelte';
-	import FileInput from '../components/FileInput.svelte';
+	import FileInput from '../components/FileInput/FileInput.svelte';
 	import FileFormatInput from '../components/FileFormatInput.svelte';
 	import Footer from '../components/Footer.svelte';
 	import { FileTypes } from '../types/FileTypes';

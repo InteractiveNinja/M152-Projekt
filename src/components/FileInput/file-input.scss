@@ -1,0 +1,7 @@
+@use 'src/theme/variables';
+@use '@material/snackbar/mixins' as snackbar;
+@use '@material/button/mixins' as button;
+
+.error-snackbar {
+	@include snackbar.fill-color(variables.$error);
+}

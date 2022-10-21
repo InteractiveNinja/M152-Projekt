@@ -1,8 +1,9 @@
 <script lang="ts">
 	import Button, { Icon } from '@smui/button';
 	import { createEventDispatcher } from 'svelte';
-	import { isValideFile } from '../util/FileUtil';
+	import { isValideFile } from '../../util/FileUtil';
 	import Snackbar, { Label } from '@smui/snackbar';
+	import './file-input.scss';
 
 	const dispatch = createEventDispatcher();
 
@@ -35,6 +36,6 @@
 	<Label>Datei wählen</Label>
 </Button>
 
-<Snackbar bind:this={snackBar}>
+<Snackbar class="error-snackbar" leading bind:this={snackBar}>
 	<Label>Ausgewählte Datei ist nicht valide!</Label>
 </Snackbar>
