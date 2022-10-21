@@ -52,20 +52,20 @@
 				/>
 
 				<FileFormatInput on:fileformat={(event) => (outputFileExtension = event.detail.format)} />
+				{#if isValide}
+					<Button variant="raised" on:click={() => (readyForConversion = true)}>
+						<Icon class="material-icons">settings</Icon>
+						<Label>Konvertieren</Label>
+					</Button>
+				{/if}
+
+				{#if readyForConversion}
+					<ConvertedFile {reset} file={sourceFile} fileExt={outputFileExtension} />
+				{/if}
 			</Content>
 		</Card>
 	</div>
 
-	{#if isValide}
-		<Button variant="raised" on:click={() => (readyForConversion = true)}>
-			<Icon class="material-icons">settings</Icon>
-			<Label>Konvertieren</Label>
-		</Button>
-	{/if}
-
-	{#if readyForConversion}
-		<ConvertedFile {reset} file={sourceFile} fileExt={outputFileExtension} />
-	{/if}
 	<Footer />
 </div>
 
@@ -78,6 +78,7 @@
 		color: variables.$primary;
 		font-weight: bold;
 	}
+
 	.subtitle1 {
 		@include typography.typography(subtitle1);
 	}
