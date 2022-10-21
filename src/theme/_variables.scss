@@ -1,4 +1,7 @@
+@use '@material/theme/color-palette';
+
 $primary: #5e548e;
 $secondary: #9f86c0;
 $surface: #fff;
 $background: #fff;
+$error: color-palette.$red-900
