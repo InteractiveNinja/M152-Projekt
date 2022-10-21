@@ -44,7 +44,7 @@
 			<div class="subtitle1">Konvertieren Sie Ihre Dateien in jedes beliebige Format</div>
 			<div class="subtitle1">Lokale auf Ihren Browser</div>
 		</div>
-		<Card class=" sides">
+		<Card class="side-margin">
 			<Content>
 				<div class="d-flex flex-column align-items-center">
 					<div class="p-2">
