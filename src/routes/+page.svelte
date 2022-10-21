@@ -44,24 +44,32 @@
 			<div class="subtitle1">Konvertieren Sie Ihre Dateien in jedes beliebige Format</div>
 			<div class="subtitle1">Lokale auf Ihren Browser</div>
 		</div>
-		<Card class="w-100">
+		<Card class=" sides">
 			<Content>
-				<FileInput
-					on:valide={(event) => (sourceFile = event.detail.file)}
-					on:invalide={() => (sourceFile = undefined)}
-				/>
-
-				<FileFormatInput on:fileformat={(event) => (outputFileExtension = event.detail.format)} />
-				{#if isValide}
-					<Button variant="raised" on:click={() => (readyForConversion = true)}>
-						<Icon class="material-icons">settings</Icon>
-						<Label>Konvertieren</Label>
-					</Button>
-				{/if}
-
-				{#if readyForConversion}
-					<ConvertedFile {reset} file={sourceFile} fileExt={outputFileExtension} />
-				{/if}
+				<div class="d-flex flex-column align-items-center">
+					<div class="p-2">
+						<FileInput
+							on:valide={(event) => (sourceFile = event.detail.file)}
+							on:invalide={() => (sourceFile = undefined)}
+						/>
+					</div>
+					<div class="p-2">
+						<FileFormatInput
+							on:fileformat={(event) => (outputFileExtension = event.detail.format)}
+						/>
+					</div>
+					{#if isValide}
+						<div class="p-2">
+							<Button variant="raised" on:click={() => (readyForConversion = true)}>
+								<Icon class="material-icons">settings</Icon>
+								<Label>Konvertieren</Label>
+							</Button>
+						</div>
+					{/if}
+					{#if readyForConversion}
+						<ConvertedFile {reset} file={sourceFile} fileExt={outputFileExtension} />
+					{/if}
+				</div>
 			</Content>
 		</Card>
 	</div>
@@ -81,5 +89,8 @@
 
 	.subtitle1 {
 		@include typography.typography(subtitle1);
+	}
+	:global(.side-margin) {
+		margin: 0 20em;
 	}
 </style>
