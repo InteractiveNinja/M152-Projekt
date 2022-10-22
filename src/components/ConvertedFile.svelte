@@ -2,21 +2,33 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 	import { FileTypes } from '../types/FileTypes';
-	import { getFileExtension, getFileTypeExtension } from '../util/FileUtil';
+	import {
+		getFileExtension,
+		getFileTypeExtension,
+		isAudioType,
+		isFileOfType
+	} from '../util/FileUtil';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import VideoShowcase from './VideoShowcase.svelte';
+	import Snackbar, { Label } from '@smui/snackbar';
+	import './FileInput/file-input.scss';
+
+	let snackBar: Snackbar;
+	let snackbarText = 'Ausgewählte Datei ist nicht valide!';
 
 	export let file: File;
 	export let fileExt: FileTypes;
 	export let reset: () => void;
 	let convertedVideoUrl: string;
 	let convertedFileName: string;
-	let ffmpegLoaded = true;
+	let ffmpegLoaded = false;
 	let loading = false;
 
 	const ffmpeg = createFFmpeg({ log: true });
 
 	async function convertFile(file: File, outputFileType: FileTypes) {
+		if (!canBeConverted(file, outputFileType)) return;
+		ffmpegLoaded = true;
 		await ffmpeg.load();
 		ffmpegLoaded = false;
 		loading = true;
@@ -34,6 +46,21 @@
 
 		convertedVideoUrl = URL.createObjectURL(new Blob([data.buffer], { type: outputFileType }));
 		convertedFileName = outputFile;
+	}
+
+	const canBeConverted = (file: File, outputFileType: FileTypes): boolean => {
+		if (isFileOfType(file, FileTypes.gif) && isAudioType(outputFileType)) {
+			snackbarText = 'Ein GIF kann nicht zur eine Audiodatei konvertiert werden';
+			snackBar.open();
+			return false;
+		}
+
+		return true;
+	};
+
+	function handleCloseSnackbar() {
+		console.log('reset');
+		reset();
 	}
 
 	onDestroy(() => {
@@ -57,3 +84,12 @@
 {#if convertedVideoUrl}
 	<VideoShowcase {convertedFileName} {convertedVideoUrl} {reset} {fileExt} />
 {/if}
+
+<Snackbar
+	class="error-snackbar"
+	leading
+	bind:this={snackBar}
+	on:SMUISnackbar:closed={handleCloseSnackbar}
+>
+	<Label>{snackbarText}</Label>
+</Snackbar>
