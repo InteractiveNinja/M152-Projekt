@@ -4,23 +4,23 @@
 
 ## Setup
 
-Node Packages Installieren `npm install`
+Install Node Packages `npm install`
 
 ### Dev Server
 
-Development Server starten `npm run dev`
+Start Development Server `npm run dev`
 
-**Konvertierung von Dateien ist im DEV Server nicht möglich**
+**Conversion of files is not possible in DEV Server**
 
 ### Build Start
 
-Projekt Builden `npm run build`
+Build Project `npm run build`
 
-Projekt starten `node .`
+Start Project `node .`
 
-Standardgemäss wird der Server auf Port `3000` gestartet, mit den Enviroment Variable `PORT` kann diese geändert werden.
+By default, the server is set to port `3000`, with the Environment Variable `PORT` this can be changed.
 
-Bsp: `PORT=5000 node .`
+`PORT=5000 node .`
 
 ## Requirements
 
