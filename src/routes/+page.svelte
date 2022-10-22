@@ -7,15 +7,20 @@
 	import Button, { Label, Icon } from '@smui/button';
 	import AppBar, { Row, Section, Title } from '@smui/top-app-bar';
 	import Card, { Content } from '@smui/card';
-
+	import MobileFirst from '../components/MobileFirst.svelte';
+	import IconButton from '@smui/icon-button';
+	import SvelteLogo from '../components/svg/SvelteLogo.svelte';
 	let sourceFile: File | undefined;
 	let outputFileExtension: FileTypes;
 	let readyForConversion = false;
 	$: isValide = !!sourceFile && !!outputFileExtension;
 
-	function reset() {
+	const reset = () => {
 		readyForConversion = false;
-	}
+	};
+	const openSvelte = () => {
+		window.open('https://svelte.dev/', '_blank');
+	};
 </script>
 
 <div>
@@ -26,15 +31,24 @@
 				<Title>Media Converter</Title>
 			</Section>
 			<Section align="end">
-				<Button
-					variant="unelevated"
-					color="secondary"
-					class="small-side-button"
-					on:click={() => window.open('https://svelte.dev/', '_blank')}
-				>
-					<Label>Made with Svelte</Label>
-					<Icon class="material-icons white-icon">favorite</Icon>
-				</Button>
+				<MobileFirst>
+					<div slot="mobile">
+						<IconButton on:click={openSvelte}>
+							<SvelteLogo />
+						</IconButton>
+					</div>
+					<div slot="desktop">
+						<Button
+							variant="unelevated"
+							color="secondary"
+							class="small-side-button"
+							on:click={openSvelte}
+						>
+							<Label>Made with Svelte</Label>
+							<Icon class="material-icons white-icon">favorite</Icon>
+						</Button>
+					</div>
+				</MobileFirst>
 			</Section>
 		</Row>
 	</AppBar>
@@ -90,7 +104,20 @@
 	.subtitle1 {
 		@include typography.typography(subtitle1);
 	}
+
 	:global(.side-margin) {
 		margin: 0 20em;
+	}
+
+	@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+		.header {
+			@include typography.typography(headline4);
+		}
+		.subtitle1 {
+			@include typography.typography(subtitle2);
+		}
+		:global(.side-margin) {
+			margin: 0;
+		}
 	}
 </style>
