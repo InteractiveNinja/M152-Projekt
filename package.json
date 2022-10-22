@@ -20,6 +20,7 @@
 		"@smui/button": "^7.0.0-beta.0",
 		"@smui/card": "^7.0.0-beta.0",
 		"@smui/circular-progress": "^7.0.0-beta.0",
+		"@smui/icon-button": "^7.0.0-beta.0",
 		"@smui/select": "^7.0.0-beta.0",
 		"@smui/snackbar": "^7.0.0-beta.0",
 		"@smui/top-app-bar": "^7.0.0-beta.0",
@@ -47,6 +48,7 @@
 		"@ffmpeg/core": "^0.11.0",
 		"@ffmpeg/ffmpeg": "^0.11.5",
 		"express": "^4.18.1",
-		"node-sass": "^7.0.3"
+		"node-sass": "^7.0.3",
+		"svelte-media-query": "^1.1.2"
 	}
 }
