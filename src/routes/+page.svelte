@@ -20,6 +20,7 @@
 	let errorDialog: ErrorDialog;
 
 	const reset = () => {
+		console.log('start reset');
 		readyForConversion = false;
 	};
 	const openSvelte = () => {
@@ -29,7 +30,7 @@
 	onMount(() => {
 		// Event on error Thrown for opening Error Dialog
 		window.onunhandledrejection = (e) => {
-			errorDialog.open(e.reason);
+			errorDialog.open(e.reason, reset);
 		};
 	});
 </script>

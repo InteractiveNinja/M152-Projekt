@@ -3,9 +3,10 @@
 	import Button, { Label } from '@smui/button';
 	import Accordion, { Panel, Header, Content as AContent } from '@smui-extra/accordion';
 
-	export const open = (reason: string) => {
+	export const open = (reason: string, action: () => void) => {
 		isOpen = true;
 		reasonText = reason;
+		action();
 	};
 	let isOpen = false;
 	let reasonText: string;
