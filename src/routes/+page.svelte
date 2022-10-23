@@ -10,10 +10,14 @@
 	import MobileFirst from '../components/MobileFirst.svelte';
 	import IconButton from '@smui/icon-button';
 	import SvelteLogo from '../components/svg/SvelteLogo.svelte';
+	import { onMount } from 'svelte';
+	import ErrorDialog from '../components/ErrorDialog.svelte';
 	let sourceFile: File | undefined;
 	let outputFileExtension: FileTypes;
 	let readyForConversion = false;
 	$: isValide = !!sourceFile && !!outputFileExtension;
+
+	let errorDialog: ErrorDialog;
 
 	const reset = () => {
 		readyForConversion = false;
@@ -21,6 +25,13 @@
 	const openSvelte = () => {
 		window.open('https://svelte.dev/', '_blank');
 	};
+
+	onMount(() => {
+		// Event on error Thrown for opening Error Dialog
+		window.onunhandledrejection = (e) => {
+			errorDialog.open(e.reason);
+		};
+	});
 </script>
 
 <div>
@@ -87,6 +98,7 @@
 			</Content>
 		</Card>
 	</div>
+	<ErrorDialog bind:this={errorDialog} />
 
 	<Footer />
 </div>
