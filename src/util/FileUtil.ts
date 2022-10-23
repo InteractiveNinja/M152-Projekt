@@ -30,7 +30,7 @@ export function isFileOfType(file: File, fileType: FileTypes) {
 
 export function isAudioType(file: FileTypes) {
 	return (
-		file === FileTypes.flaac ||
+		file === FileTypes.flac ||
 		file === FileTypes.mp3 ||
 		file === FileTypes.ogg ||
 		file === FileTypes.wav ||

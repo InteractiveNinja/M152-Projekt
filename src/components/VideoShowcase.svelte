@@ -2,6 +2,7 @@
 	import DownloadButton from './DownloadButton.svelte';
 	import Button, { Icon, Label } from '@smui/button';
 	import { FileTypes } from '../types/FileTypes.js';
+	import { isAudioType } from '../util/FileUtil.js';
 
 	export let convertedVideoUrl: string;
 	export let convertedFileName: string;
@@ -10,14 +11,7 @@
 </script>
 
 <div class="d-flex flex-column align-items-center">
-	{#if fileExt !== FileTypes.gif}
-		<!-- svelte-ignore a11y-media-has-caption -->
-		<div class="embed-responsive embed-responsive-16by9">
-			<video width="320" height="240" controls>
-				<source src={convertedVideoUrl} />
-			</video>
-		</div>
-	{:else}
+	{#if fileExt === FileTypes.gif}
 		<div class="embed-responsive embed-responsive-16by9">
 			<img
 				width="320"
@@ -25,6 +19,19 @@
 				src={convertedVideoUrl}
 				alt="Konvertierens GIF {convertedFileName}"
 			/>
+		</div>
+	{:else if isAudioType(fileExt)}
+		<div class="embed-responsive embed-responsive-16by9">
+			<audio controls>
+				<source src={convertedVideoUrl} type={fileExt} />
+			</audio>
+		</div>
+	{:else}
+		<!-- svelte-ignore a11y-media-has-caption -->
+		<div class="embed-responsive embed-responsive-16by9">
+			<video width="320" height="240" controls>
+				<source src={convertedVideoUrl} />
+			</video>
 		</div>
 	{/if}
 	<div class="d-flex justify-content-evenly p-1 action-buttons">
