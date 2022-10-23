@@ -33,7 +33,8 @@ export function isAudioType(file: FileTypes) {
 		file === FileTypes.flac ||
 		file === FileTypes.mp3 ||
 		file === FileTypes.ogg ||
-		file === FileTypes.wav
+		file === FileTypes.wav ||
+		file == FileTypes.aac
 	);
 }
 
