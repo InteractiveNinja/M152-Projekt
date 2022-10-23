@@ -1,6 +1,5 @@
 export enum FileTypes {
 	mp4 = 'media/mp4',
-	avi = 'media/avi',
 	mov = 'media/mov',
 	mkv = 'media/mkv',
 	webm = 'media/webm',
