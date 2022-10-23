@@ -8,6 +8,6 @@ export enum FileTypes {
 	mp3 = 'audio/mp3',
 	aac = 'audio/aac',
 	wav = 'audio/wav',
-	flaac = 'audio/flaac',
+	flac = 'audio/flac',
 	ogg = 'audio/ogg'
 }
