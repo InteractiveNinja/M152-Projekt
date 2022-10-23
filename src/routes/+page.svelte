@@ -3,7 +3,7 @@
 	import FileInput from '../components/FileInput/FileInput.svelte';
 	import FileFormatInput from '../components/FileFormatInput.svelte';
 	import Footer from '../components/Footer.svelte';
-	import { FileTypes } from '../types/FileTypes';
+	import type { FileTypes } from '../types/FileTypes';
 	import Button, { Label, Icon } from '@smui/button';
 	import AppBar, { Row, Section, Title } from '@smui/top-app-bar';
 	import Card, { Content } from '@smui/card';

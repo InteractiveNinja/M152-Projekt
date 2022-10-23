@@ -17,7 +17,7 @@
 	let snackBar: Snackbar;
 	let snackbarText = 'Ausgewählte Datei ist nicht valide!';
 
-	export let file: File;
+	export let file: File | undefined;
 	export let fileExt: FileTypes;
 	export let reset: () => void;
 	let convertedVideoUrl: string;

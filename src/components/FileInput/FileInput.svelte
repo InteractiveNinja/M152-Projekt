@@ -13,9 +13,9 @@
 		let input = document.createElement('input');
 		input.type = 'file';
 		input.onchange = () => {
-			let files = Array.from(input.files);
-			if (files.length >= 1) {
-				validateFile(files.pop());
+			const file = input.files?.item(0);
+			if (file) {
+				validateFile(file);
 			}
 		};
 		input.click();
