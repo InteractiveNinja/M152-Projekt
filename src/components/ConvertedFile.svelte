@@ -5,6 +5,7 @@
 	import {
 		getFileExtension,
 		getFileTypeExtension,
+		getFileTypeFromFile,
 		isAudioType,
 		isFileOfType
 	} from '../util/FileUtil';
@@ -51,6 +52,11 @@
 	const canBeConverted = (file: File, outputFileType: FileTypes): boolean => {
 		if (isFileOfType(file, FileTypes.gif) && isAudioType(outputFileType)) {
 			snackbarText = 'Ein GIF kann nicht zur eine Audiodatei konvertiert werden';
+			snackBar.open();
+			return false;
+		}
+		if (outputFileType === FileTypes.gif && isAudioType(getFileTypeFromFile(file))) {
+			snackbarText = 'Audiodateien können nicht zu GIF konvertiert werden';
 			snackBar.open();
 			return false;
 		}

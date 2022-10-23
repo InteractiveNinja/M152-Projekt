@@ -37,3 +37,10 @@ export function isAudioType(file: FileTypes) {
 		file === FileTypes.avi
 	);
 }
+
+export function getFileTypeFromFile(file: File): FileTypes {
+	const fileExtension = getFileExtension(file) ?? '';
+	// Wie man aus einem per Enum key den Value rausholt der immer noch getyped ist:
+	// https://stackoverflow.com/a/66117678
+	return FileTypes[fileExtension as keyof typeof FileTypes];
+}
