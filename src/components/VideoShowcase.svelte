@@ -23,7 +23,8 @@
 	{:else if isAudioType(fileExt)}
 		<div class="embed-responsive embed-responsive-16by9">
 			<audio controls>
-				<source src={convertedVideoUrl} type={fileExt} />
+				<source src={convertedVideoUrl} />
+				Dein Browser unterstützt dieses Audio nicht.
 			</audio>
 		</div>
 	{:else}
@@ -31,6 +32,7 @@
 		<div class="embed-responsive embed-responsive-16by9">
 			<video width="320" height="240" controls>
 				<source src={convertedVideoUrl} />
+				Dein Browser unterstützt dieses Video nicht.
 			</video>
 		</div>
 	{/if}
